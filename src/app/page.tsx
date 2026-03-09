@@ -143,7 +143,12 @@ function Column({
 
 export default function KanbanPage() {
   const { data: session, status } = useSession()
-  const { columns, setColumns, addTask, updateTask, deleteTask } = useTaskStore()
+  const { columns, loading, fetchData, addTask, updateTask, deleteTask } = useTaskStore()
+  
+  // Fetch data from Supabase on mount
+  useEffect(() => {
+    fetchData()
+  }, [fetchData])
   
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isAIModalOpen, setIsAIModalOpen] = useState(false)
@@ -223,7 +228,7 @@ export default function KanbanPage() {
     }
   }
 
-  if (status === 'loading') {
+  if (status === 'loading' || loading) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center">
         <div className="flex items-center gap-2 text-gray-500">
