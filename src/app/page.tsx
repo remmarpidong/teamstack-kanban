@@ -183,6 +183,7 @@ export default function KanbanPage() {
     const [movedTask] = sourceCol.tasks.splice(source.index, 1)
     destCol.tasks.splice(destination.index, 0, movedTask)
 
+    // Update store
     setColumns(newColumns)
   }
 
