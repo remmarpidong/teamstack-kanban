@@ -34,6 +34,7 @@ export const useTaskStore = create<TaskStore>((set, get) => ({
 
   setColumns: (columns) => set({ columns }),
   setLoading: (loading) => set({ loading }),
+  setColumns: (columns) => set({ columns }),
 
   fetchData: async () => {
     set({ loading: true })
