@@ -4,6 +4,7 @@ export interface Task {
   id: string
   title: string
   description?: string
+  assignee?: string
   priority: 'low' | 'medium' | 'high'
   dueDate?: string
   column_id?: string
