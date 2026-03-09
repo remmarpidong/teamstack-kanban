@@ -3,7 +3,8 @@
 import { useState, useEffect, useCallback } from 'react'
 import { DragDropContext, Droppable, Draggable, DropResult } from '@hello-pangea/dnd'
 import { Plus, MoreHorizontal, Bot, User, Calendar, LogOut, Sparkles, X, Loader2 } from 'lucide-react'
-import { useSession, signIn, signOut } from 'next-auth/react'
+// Simple version - no auth for now
+// import { useSession, signIn, signOut } from 'next-auth/react'
 import { TaskModal } from '@/components/TaskModal'
 import { AIAssistModal } from '@/components/AIAssistModal'
 import { useTaskStore, Task } from '@/lib/store'
@@ -142,8 +143,12 @@ function Column({
 }
 
 export default function KanbanPage() {
-  const { data: session, status } = useSession()
+  // No auth for now
+  // const { data: session, status } = useSession()
   const { columns, loading, fetchData, addTask, updateTask, deleteTask } = useTaskStore()
+  
+  const session = null
+  const status = "authenticated"
   
   // Fetch data from Supabase on mount
   useEffect(() => {
@@ -249,7 +254,7 @@ export default function KanbanPage() {
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">TeamStack Kanban</h1>
           <p className="text-gray-500 dark:text-gray-400 mb-6">AI-Powered Kanban Board for Modern Teams</p>
           <button
-            onClick={() => signIn('github')}
+            onClick={() => console.log('sign in')}
             className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-gray-900 hover:bg-gray-800 text-white rounded-xl transition-colors"
           >
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -296,7 +301,7 @@ export default function KanbanPage() {
               AI Assist
             </button>
             <button 
-              onClick={() => signOut()}
+              onClick={() => console.log('sign out')}
               className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
               title="Sign out"
             >
