@@ -28,31 +28,34 @@ interface TaskStore {
   deleteTask: (columnId: string, taskId: string) => Promise<void>
 }
 
-export const useTaskStore = create<TaskStore>((set, get) => ({
+export const useTaskStore = create<TaskStore>((set) => ({
   columns: [],
   loading: true,
 
   setColumns: (columns) => set({ columns }),
   setLoading: (loading) => set({ loading }),
-  setColumns: (columns) => set({ columns }),
 
   fetchData: async () => {
+    console.log('Fetching data...')
     set({ loading: true })
     try {
-      // Fetch columns
-      const colsRes = await fetch('/api/columns')
-      const columnsData = await colsRes.json()
+      const [colsRes, tasksRes] = await Promise.all([
+        fetch('/api/columns'),
+        fetch('/api/tasks')
+      ])
       
-      // Fetch tasks
-      const tasksRes = await fetch('/api/tasks')
+      const columnsData = await colsRes.json()
       const tasksData = await tasksRes.json()
       
-      // Organize tasks by column
+      console.log('Columns:', columnsData)
+      console.log('Tasks:', tasksData)
+      
       const columns = columnsData.map((col: any) => ({
         ...col,
         tasks: tasksData.filter((task: any) => task.column_id === col.id)
       }))
       
+      console.log('Mapped columns:', columns)
       set({ columns, loading: false })
     } catch (error) {
       console.error('Error fetching data:', error)
