@@ -145,7 +145,7 @@ function Column({
 export default function KanbanPage() {
   // No auth for now - show kanban directly
   // const { data: session, status } = useSession()
-  const { columns, loading, fetchData, addTask, updateTask, deleteTask } = useTaskStore()
+  const { columns, loading, setColumns, fetchData, addTask, updateTask, deleteTask } = useTaskStore()
   
   const session = { user: { name: 'Demo User', image: null, email: 'demo@teamstack.ai' } }
   const status = "authenticated"
