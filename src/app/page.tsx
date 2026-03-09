@@ -148,7 +148,7 @@ export default function KanbanPage() {
   const { columns, loading, setColumns, fetchData, addTask, updateTask, deleteTask } = useTaskStore()
   
   const session = { user: { name: 'Demo User', image: null, email: 'demo@teamstack.ai' } }
-  const status = "authenticated"
+  const status = "loaded"
   
   // Fetch data from Supabase on mount
   useEffect(() => {
@@ -234,6 +234,8 @@ export default function KanbanPage() {
     }
   }
 
+  // Skip loading check - show data directly
+  /*
   if (status === 'loading' || loading) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center">
@@ -244,6 +246,7 @@ export default function KanbanPage() {
       </div>
     )
   }
+  */
 
   if (!session) {
     return (
