@@ -1,19 +1,13 @@
-import { createServerClient } from '@supabase/ssr';
+import { createServerClient as createClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
 /**
  * Supabase client for server-side usage (Server Components, API Routes).
- * 
- * IMPORTANT: Add your Supabase credentials to .env.local:
- * - NEXT_PUBLIC_SUPABASE_URL
- * - NEXT_PUBLIC_SUPABASE_ANON_KEY
- * 
- * Copy from .env.example and fill in your values.
  */
-export async function createServerClient() {
+export async function supabaseServer() {
   const cookieStore = await cookies();
 
-  return createServerClient(
+  return createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
